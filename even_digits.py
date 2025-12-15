@@ -23,11 +23,36 @@ For credit your function must use a stack or a queue in a significant way.
 """
 
 def even_digits(integer):
-    pass # please replace with your solution
+    all_stack = node_stack.Stack()
+    even_stack = node_stack.Stack()
+    while integer >= 1:
+        i = 1
+        f = float(integer)
+        while f > 9:
+            f /= 10
+            i *= 10
+        f = int(f)
+        all_stack.push(f)
+        integer -= f*i
 
+    print(all_stack)
 
+    while not all_stack.is_empty():
+        i = all_stack.pop()
+        if i % 2 == 0:
+            even_stack.push(i)
+    
+    inc = 1
+    final = 0
+    while not even_stack.is_empty():
+        value = even_stack.pop()
+        final += value*inc
+        inc *= 10
+    
+    return final
+    
 
-
+print(even_digits(1234567890))
 
 # several test cases provided for even digits - 1, 2, 34, 1234567890
 def test_even_digits_1():
