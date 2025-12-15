@@ -18,11 +18,49 @@ Write down the manual test by creating at least two items.
 """
 
 class Item:
-    pass # please replace with your solution
+    __slots__ = ["__item_code", "__name", "__price"]
 
+    def __init__(self, item_code, name, price):
+      self.__item_code = item_code
+      self.__name = name
+      self.__price = price
+
+    def __eq__(self, value):
+      if type(self) == type(value):
+        if self.__item_code == value.__item_code:
+            return True
+      return False
+    
+    def __hash__(self):
+      return hash(self.__item_code)
+    
+    def __repr__(self):
+      return "(" + str(self.__item_code) + ", " + self.__name + ", " + str(self.__price) + ")"
+    
+    def get_code(self):
+      return self.__item_code
+    
+    def get_name(self):
+      return self.__name
+
+    def get_price(self):
+      return self.__price
+
+def item_key(item):
+  return item.get_code()
 
 # manual test from main() method
-def main():     pass
- 
+def main():
+  item1 = Item("ABC-123", "Silky Camisole", 24)
+  item2 = Item("ZXC-098", "Food", 10)
+  list1 = [item2,item1]
+
+  print(item1, item2, sep="\n")
+  print(item1 == item2)
+  print(item1 == 2)
+  print(set(list1))
+
+  list1.sort(key=item_key)
+  print(list1)
 
 if __name__ == "__main__":    main()
